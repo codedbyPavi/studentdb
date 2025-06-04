@@ -1,0 +1,100 @@
+/* Basic styling */
+body {
+    background-image: url(baground.jpg);
+    font-family: Arial, sans-serif;
+    /* background-color: purple; Remove background color */
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    /* background: #fff url('path_to_your_image.jpg') center/cover; Remove background image */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+label {
+    margin-top: 10px;
+    animation: slideIn 0.5s ease-in-out;
+}
+input, select, button {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    animation: slideIn 0.5s ease-in-out;
+}
+button {
+    margin-top: 20px;
+    background-color: #007bff; /* Change button color to blue */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+}
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #007bff;
+    text-decoration: none;
+    animation: fadeIn 1s ease-in-out;
+}
+a:hover {
+    text-decoration: underline;
+}
+.success, .error {
+    text-align: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+.success {
+    background-color: #d4edda;
+    color: #28a745; /* Green color for success message */
+}
+.error {
+    background-color: #f8d7da;
+    color: #dc3545; /* Red color for error message */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+/* Transition effects for interactive elements */
+input:focus, select:focus, button:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: box-shadow 0.3s ease-in-out;
+}

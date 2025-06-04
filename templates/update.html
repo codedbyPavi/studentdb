@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Student Data</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: purple; /* Change background color to purple */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        input, select, button {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #007bff; /* Change button color to blue */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .success, .error {
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        /* Transition effects for interactive elements */
+        input:focus, select:focus, button:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Student Data</h1>
+        <form action="/update" method="POST">
+            <label for="usn">Enter USN:</label>
+            <input type="text" id="usn" name="usn" minlength="10" maxlength="10" required>
+            
+            <label for="field">Field to Update:</label>
+            <select id="field" name="field" required>
+                <option value="name">Name</option>
+                <option value="branch">Branch</option>
+                <option value="sem">Semester</option>
+                <option value="total_marks">Total Marks</option>
+                <option value="dob">Date of Birth</option>
+            </select>
+            
+            <label for="new_value" id="new_value_label">New Value:</label>
+            <input type="text" id="new_value" name="new_value" required>
+            
+            <label for="dob" id="dob_label" style="display: none;">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" style="display: none;">
+            
+            <button type="submit" style="background-color: #007bff;">Update</button> <!-- Update button color inline -->
+        </form>
+
+        <br>
+        <a href="/">Insert Student Data</a> |
+        <a href="/display">Display Student Data</a> |
+        <a href="/delete">Delete Student Data</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fieldSelect = document.getElementById('field');
+            const newValueInput = document.getElementById('new_value');
+            const dobInput = document.getElementById('dob');
+            const dobLabel = document.getElementById('dob_label');
+            const newValueLabel = document.getElementById('new_value_label');
+
+            fieldSelect.addEventListener('change', function() {
+                if (fieldSelect.value === 'dob') {
+                    newValueInput.style.display = 'none';
+                    dobInput.style.display = 'block';
+                    dobLabel.style.display = 'block';
+                    newValueLabel.style.display = 'none';
+                    dobInput.required = true;
+                    newValueInput.required = false;
+                } else {
+                    newValueInput.style.display = 'block';
+                    dobInput.style.display = 'none';
+                    dobLabel.style.display = 'none';
+                    newValueLabel.style.display = 'block';
+                    dobInput.required = false;
+                    newValueInput.required = true;
+                }
+            });
+
+            // Add transition effects to form elements
+            const formElements = document.querySelectorAll('input, select, button');
+            formElements.forEach(element => {
+                element.addEventListener('focus', () => {
+                    element.classList.add('focused');
+                });
+                element.addEventListener('blur', () => {
+                    element.classList.remove('focused');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

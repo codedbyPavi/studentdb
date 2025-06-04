@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Student Data</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: purple; /* Change background color to purple */
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        input, button {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #dc3545; /* Change button color to red for delete */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #c82333; /* Darker shade of red on hover */
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            animation: fadeIn 1s ease-in-out;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .success, .error {
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724; /* Green color for success message */
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24; /* Red color for error message */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        /* Transition effects for interactive elements */
+        input:focus, button:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+    </style>
+    <script>
+        function confirmDelete() {
+            return confirm("Are you sure you want to delete this student?");
+        }
+    </script>
+</head>
+<body>
+    <div class="container delete-container">
+        <h1>Delete Student Data</h1>
+        <form action="/delete" method="POST">
+            <label for="usn">Enter USN:</label>
+            <input type="text" id="usn" name="usn" required>
+            <button type="submit" onclick="return confirmDelete()">Delete</button>
+        </form>
+
+        <br>
+        <a href="/">Insert Student Data</a> |
+        <a href="/update">Update Student Data</a> |
+        <a href="/display">Display Student Data</a>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
